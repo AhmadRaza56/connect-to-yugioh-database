@@ -20,13 +20,13 @@ namespace connect_to_yugioh_database
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        { 
             string connetionString;
             MySqlConnection cnn;
             connetionString = @"Data Source=localhost;Initial Catalog=mydb;User ID=root;Password=root";
             cnn = new MySqlConnection(connetionString);
             cnn.Open();
-            MessageBox.Show("Connection Open  !");
+            MessageBox.Show("Connection Open  !");   
             cnn.Close();
         }
     }
