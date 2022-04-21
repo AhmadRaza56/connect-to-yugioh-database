@@ -21,12 +21,23 @@ namespace connect_to_yugioh_database
 
         private void button1_Click(object sender, EventArgs e)
         { 
-            string connetionString;
+            string connStr;
             MySqlConnection cnn;
-            connetionString = @"Data Source=localhost;Initial Catalog=mydb;User ID=root;Password=root";
-            cnn = new MySqlConnection(connetionString);
+            connStr = @"Data Source=localhost;Initial Catalog=mydb;User ID=root;Password=root";
+            cnn = new MySqlConnection(connStr);
             cnn.Open();
-            MessageBox.Show("Connection Open  !");   
+            MessageBox.Show("Connection Open  !");
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter("SELECT * FROM mydb.spells;", conn))
+                {
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds);
+                    dataGridView1.DataSource = ds.Tables[0];
+                }
+            }
+
             cnn.Close();
         }
     }
