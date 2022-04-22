@@ -18,19 +18,18 @@ namespace connect_to_yugioh_database
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        string table;
+        public void button1_Click(object sender, EventArgs e)
         { 
             string connStr;
             MySqlConnection cnn;
             connStr = @"Data Source=localhost;Initial Catalog=mydb;User ID=root;Password=root";
             cnn = new MySqlConnection(connStr);
             cnn.Open();
-            MessageBox.Show("Connection Open  !");
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter("SELECT * FROM mydb.spells;", conn))
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter("SELECT * FROM mydb."+ table +";", conn))
                 {
                     DataSet ds = new DataSet();
                     adapter.Fill(ds);
@@ -39,6 +38,31 @@ namespace connect_to_yugioh_database
             }
 
             cnn.Close();
+        }
+
+        public void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+            if (textBox1.Text.ToLower() == "spells")
+            {
+                table = "spells";
+            }
+            else if (textBox1.Text.ToLower() == "traps")
+            {
+                table = "traps";
+            }
+            else if (textBox1.Text.ToLower() == "extra deck")
+            {
+                table = "extra_deck";
+            }
+            else if (textBox1.Text.ToLower() == "normal monster")
+            {
+                table = "normal_monster";
+            }
+            else if (textBox1.Text.ToLower() == "effect monster")
+            {
+                table = "effect_monster";
+            }
         }
     }
 }
